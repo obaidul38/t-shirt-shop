@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Selection</title>
+</head>
+<body>
+    <h2>Select Your T-Shirt</h2>
+
+    <label for="size">Size:</label>
+    <select id="size">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" value="1" min="1">
+
+    <button onclick="addToCart()">Add to Cart</button>
+
+    <br><br>
+    <a href="cart.html">Go to Cart</a>  <!-- Link to cart page -->
+
+    <script>
+        function addToCart() {
+            let size = document.getElementById("size").value;
+            let quantity = parseInt(document.getElementById("quantity").value);
+
+            if (quantity < 1) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            // Retrieve existing cart data from localStorage
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Add new item
+            cart.push({ size, quantity });
+
+            // Save back to localStorage
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert("Product added to cart!");
+        }
+    </script>
+</body>
+</html>
