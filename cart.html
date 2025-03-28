@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+    <ul id="cart-list"></ul>
+
+    <button onclick="orderOnWhatsApp()">Order in WhatsApp</button>
+    <br><br>
+    <a href="product.html">Back to Shopping</a>  <!-- Link to product page -->
+
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartList = document.getElementById("cart-list");
+            cartList.innerHTML = ""; // Clear previous content
+
+            if (cart.length === 0) {
+                cartList.innerHTML = "<li>Cart is empty</li>";
+                return;
+            }
+
+            cart.forEach((item) => {
+                let li = document.createElement("li");
+                li.textContent = Size: ${item.size}, Quantity: ${item.quantity};
+                cartList.appendChild(li);
+            });
+        }
+
+        function orderOnWhatsApp() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+
+            let message = "Hello, I want to order:\n";
+            cart.forEach((item) => {
+                message += - Size: ${item.size}, Quantity: ${item.quantity}\n;
+            });
+
+            let phoneNumber = "1234567890"; // Replace with your WhatsApp number
+            let whatsappUrl = https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)};
+            
+            window.open(whatsappUrl, "_blank");
+        }
+
+        // Load cart when page opens
+        loadCart();
+    </script>
+</body>
+</html>
